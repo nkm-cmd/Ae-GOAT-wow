@@ -225,5 +225,92 @@
       </ol>
     </div>
   </div>
+  {
+    background: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    margin: 0;
+  }
+  .login-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff007a;
+    width: 300px;
+  }
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+  }
+  button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: #ff007a;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background: #ff3399;
+  }
+  #message {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-box">
+  <h2>Connexion Admin</h2>
+  <input type="password" id="password" placeholder="Mot de passe" autofocus />
+  <button onclick="checkPassword()">Se connecter</button>
+  <div id="message"></div>
+</div>
+
+<script>
+  async function sha256(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+  }
+
+  async function checkPassword() {
+    const input = document.getElementById('password').value;
+    const hashInput = await sha256(input);
+
+    // Hash SHA-256 du mot de passe "Aelaxatif1*"
+    const hashCorrect = "d306c5f5372bbd8f468f521541b4189c88279979e1e9e5a6dd8af1a0e0c4e97a";
+
+    const messageEl = document.getElementById('message');
+
+    if(hashInput === hashCorrect) {
+      messageEl.style.color = 'lightgreen';
+      messageEl.textContent = "Mot de passe correct ! Vous êtes connecté.";
+      // Ici tu peux par exemple rediriger vers ta page admin sécurisée
+      // window.location.href = 'admin_panel.html';
+    } else {
+      messageEl.style.color = 'red';
+      messageEl.textContent = "Mot de passe incorrect.";
+    }
+  }
+</script>
+
 </body>
 </html>
