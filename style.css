@@ -93,25 +93,66 @@ body {
   color: #ff007a;
   text-shadow: 1px 1px 10px #ff007a;
 }
-/* Bouton Admin à l’intérieur de la box Mrnkm_ */
-.admin-button-inline {
-  display: inline-block;
-  margin-left: 15px;
-  padding: 5px 10px;
-  background: #ff007a;
+/* Style modal connexion admin */
+.modal {
+  position: fixed;
+  z-index: 10000; /* au dessus de tout */
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #222;
+  padding: 30px 40px;
+  border-radius: 15px;
   color: white;
+  min-width: 300px;
+  box-shadow: 0 0 20px #ff007a;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0 10px;
   border-radius: 8px;
+  border: none;
+  font-size: 1em;
+}
+
+.modal-content button {
+  background: #ff007a;
+  border: none;
+  padding: 10px 20px;
+  color: white;
   font-weight: bold;
-  font-size: 0.9em;
-  text-decoration: none;
-  box-shadow: 0 0 8px #ff007a;
-  vertical-align: middle;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff007a;
   transition: background 0.3s;
 }
 
-.admin-button-inline:hover {
+.modal-content button:hover {
   background: #ff3399;
 }
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: #ff007a;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 
 /* Horloge fixée en haut à droite avec fond opaque */
 .clock {
