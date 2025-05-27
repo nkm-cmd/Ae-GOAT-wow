@@ -83,72 +83,45 @@
   </div>
 
 <script>
-  // Hash mot de passe (SHA-256) = hash de "Aelaxatif1*"
   const adminHash = 'd306c5f5372bbd8f468f521541b4189c88279979e1e9e5a6dd8af1a0e0c4e97a';
 
-  // Convertir ArrayBuffer en hex string
-  function bufferToHex(buffer) {
-    return Array.from(new Uint8Array(buffer))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-  }
-
-  // Hash en SHA-256
-  async function hashPassword(password) {
+  async function sha256(str) {
     const encoder = new TextEncoder();
-    const data = encoder.encode(password);
+    const data = encoder.encode(str);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    return bufferToHex(hashBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
+  const loginBtn = document.getElementById('loginBtn');
+  const passwordInput = document.getElementById('passwordInput');
+  const errorMsg = document.getElementById('errorMsg');
   const loginPanel = document.getElementById('loginPanel');
   const adminContent = document.getElementById('adminContent');
-  const passwordInput = document.getElementById('passwordInput');
-  const loginBtn = document.getElementById('loginBtn');
-  const errorMsg = document.getElementById('errorMsg');
   const logoutBtn = document.getElementById('logoutBtn');
 
-  // Fonction pour montrer admin
-  function showAdmin() {
-    loginPanel.style.display = 'none';
-    adminContent.style.display = 'block';
-  }
-
-  // Fonction pour déconnexion
-  function logout() {
-    adminContent.style.display = 'none';
-    loginPanel.style.display = 'block';
-    passwordInput.value = '';
-    errorMsg.textContent = '';
-  }
-
-  loginBtn.addEventListener('click', async () => {
-    const pwd = passwordInput.value.trim();
-    if (!pwd) {
-      errorMsg.textContent = 'Veuillez entrer un mot de passe.';
-      return;
-    }
-    const hashed = await hashPassword(pwd);
-    if (hashed === adminHash) {
+  loginBtn.onclick = async () => {
+    const hash = await sha256(passwordInput.value);
+    if (hash === adminHash) {
       errorMsg.textContent = '';
-      showAdmin();
+      loginPanel.style.display = 'none';
+      adminContent.style.display = 'block';
     } else {
-      errorMsg.textContent = 'Mot de passe incorrect.';
+      errorMsg.textContent = 'Mot de passe incorrect';
     }
-  });
+  };
 
-  // Permet submit avec touche Entrée
+  logoutBtn.onclick = () => {
+    passwordInput.value = '';
+    loginPanel.style.display = 'block';
+    adminContent.style.display = 'none';
+  };
+
   passwordInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') loginBtn.click();
   });
-
-  logoutBtn.addEventListener('click', () => {
-    logout();
-  });
-
-  // Optionnel : Si tu veux mémoriser la session admin, tu peux utiliser localStorage
-  // Mais attention, ce n'est pas très sécurisé côté front
 </script>
+
 
 </body>
 </html>
