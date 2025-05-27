@@ -111,41 +111,6 @@
   }
 
   const adminHash = 'd306c5f5372bbd8f468f521541b4189c88279979e1e9e5a6dd8af1a0e0c4e97a';
-
-  const modal = document.getElementById('adminModal');
-  const btn = document.getElementById('adminBtn');
-  const spanClose = document.getElementById('closeModal');
-  const loginBtn = document.getElementById('loginBtn');
-  const loginMsg = document.getElementById('loginMessage');
-  const pwdInput = document.getElementById('adminPassword');
-
-  // Ouvrir modal au clic bouton
-  btn.onclick = () => {
-    loginMsg.textContent = '';
-    pwdInput.value = '';
-    modal.style.display = 'block';
-    pwdInput.focus();
-  };
-
-  // Fermer modal
-  spanClose.onclick = () => {
-    modal.style.display = 'none';
-  };
-
-  // Fermer modal si clic hors contenu
-  window.onclick = (event) => {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-  };
-
-  // Vérification mot de passe au clic login
-  loginBtn.onclick = async () => {
-    const pwd = pwdInput.value;
-    if (!pwd) {
-      loginMsg.textContent = 'Veuillez entrer un mot de passe';
-      return;
-    }
     const hashed = await hashPassword(pwd);
     if (hashed === adminHash) {
       loginMsg.style.color = 'green';
