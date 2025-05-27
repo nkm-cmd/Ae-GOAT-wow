@@ -93,6 +93,22 @@ body {
   color: #ff007a;
   text-shadow: 1px 1px 10px #ff007a;
 }
+.admin-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff007a;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px #ff007a;
+  transition: 0.3s;
+}
+.admin-button:hover {
+  background: #ff3399;
+}
 
 ol {
   padding-left: 20px;
