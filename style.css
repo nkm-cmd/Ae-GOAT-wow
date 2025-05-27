@@ -1,4 +1,3 @@
-/* style.css */
 body {
   margin: 0;
   padding: 0;
@@ -12,26 +11,32 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 300px;
-  background: url('https://images.pexels.com/photos/7130555/pexels-photo-7130555.jpeg') no-repeat center/contain;
-  opacity: 0.15;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
-  animation: floatSharingan 20s ease-in-out infinite, rotateSharingan 30s linear infinite;
-  pointer-events: none;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/a/aa/Mangekyou_Sharingan_Sasuke_%28Eternal%29.svg') no-repeat center center;
+  background-size: 80vh;
+  opacity: 0.15;
+  filter: brightness(0.8) saturate(2) hue-rotate(340deg);
+  animation: moveAndRotate 30s infinite linear;
 }
 
-@keyframes floatSharingan {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(calc(100vw - 300px), 0); }
-  50% { transform: translate(calc(100vw - 300px), calc(100vh - 300px)); }
-  75% { transform: translate(0, calc(100vh - 300px)); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes rotateSharingan {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes moveAndRotate {
+  0% {
+    transform: translate(-5%, -5%) rotate(0deg);
+  }
+  25% {
+    transform: translate(5%, -5%) rotate(90deg);
+  }
+  50% {
+    transform: translate(5%, 5%) rotate(180deg);
+  }
+  75% {
+    transform: translate(-5%, 5%) rotate(270deg);
+  }
+  100% {
+    transform: translate(-5%, -5%) rotate(360deg);
+  }
 }
 
 .container {
