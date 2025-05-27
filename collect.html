@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><title>Collecte</title></head>
+<body>
+  <h1>Collecte des Infos</h1>
+  <pre id="infos"></pre>
+
+  <script>
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const infos = {
+          ip: data.ip,
+          pays: data.country_name,
+          date: new Date().toLocaleString(),
+          navigateur: navigator.userAgent
+        };
+
+        document.getElementById('infos').textContent = JSON.stringify(infos, null, 2);
+      });
+  </script>
+</body>
+</html>
