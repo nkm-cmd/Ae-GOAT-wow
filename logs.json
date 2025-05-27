@@ -1,1 +1,19 @@
+<?php
+$logfile = 'logs/visites.json';
+
+$info = [
+    'ip' => $_SERVER['REMOTE_ADDR'],
+    'agent' => $_SERVER['HTTP_USER_AGENT'],
+    'time' => date('Y-m-d H:i:s'),
+    'page' => $_SERVER['HTTP_REFERER'] ?? 'Accès direct'
+];
+
+$logs = [];
+if (file_exists($logfile)) {
+    $logs = json_decode(file_get_contents($logfile), true);
+}
+
+$logs[] = $info;
+file_put_contents($logfile, json_encode($logs, JSON_PRETTY_PRINT));
+?>
 
