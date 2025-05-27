@@ -311,6 +311,73 @@
     }
   }
 </script>
+<script>
+  // Convert ArrayBuffer to hex string
+  function bufferToHex(buffer) {
+    return Array.from(new Uint8Array(buffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  // Hashage SHA-256
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return bufferToHex(hashBuffer);
+  }
+
+  const adminHash = 'd306c5f5372bbd8f468f521541b4189c88279979e1e9e5a6dd8af1a0e0c4e97a';
+
+  const modal = document.getElementById('adminModal');
+  const btn = document.getElementById('adminBtn');
+  const spanClose = document.getElementById('closeModal');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginMsg = document.getElementById('loginMessage');
+  const pwdInput = document.getElementById('adminPassword');
+
+  btn.onclick = () => {
+    loginMsg.textContent = '';
+    pwdInput.value = '';
+    modal.style.display = 'block';
+    pwdInput.focus();
+  };
+
+  spanClose.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  loginBtn.onclick = async () => {
+    const pwd = pwdInput.value;
+    if (!pwd) {
+      loginMsg.textContent = 'Veuillez entrer un mot de passe';
+      return;
+    }
+    const hashed = await hashPassword(pwd);
+    if (hashed === adminHash) {
+      loginMsg.style.color = 'lightgreen';
+      loginMsg.textContent = 'Connecté en tant qu\'admin !';
+
+      setTimeout(() => {
+        modal.style.display = 'none';
+        window.location.href = 'admin.html';
+      }, 1000);
+    } else {
+      loginMsg.style.color = 'red';
+      loginMsg.textContent = 'Mot de passe incorrect';
+    }
+  };
+
+  pwdInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginBtn.click();
+  });
+</script>
 
 </body>
 </html>
