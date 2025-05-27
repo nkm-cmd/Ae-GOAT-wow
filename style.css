@@ -97,3 +97,11 @@ ol {
 li {
   margin-bottom: 5px;
 }
+
+{
+  background-image: url('images/mangekyou_sharingan_sasuke(Eternal).svg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* ou cover selon ce que tu veux */
+  background-color: black; /* optionnel, pour bien faire ressortir */
+}
