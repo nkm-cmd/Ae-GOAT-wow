@@ -83,9 +83,9 @@
         Ban : UnBan moi please brother :mrnkm_
       </div>
     </div>
-   <div class="box">
+<div class="box">
   <div class="pseudo">Mrnkm_ 
-    <a href="admin.html" class="admin-button-inline">Admin</a>
+    <button id="adminBtn" class="admin-button-inline">Admin</button>
   </div>
   <div class="info">
     Pour tout Ajouts mp moi sur discord : mrnkm. <br />
@@ -93,6 +93,92 @@
     NIQUE LES IMPORT ON VOUS OUBLIE PAS , -8k7
   </div>
 </div>
+
+<!-- Modal Connexion Admin -->
+<div id="adminModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2>Connexion Admin</h2>
+    <input type="password" id="adminPassword" placeholder="Mot de passe" />
+    <button id="loginBtn">Se connecter</button>
+    <p id="loginMessage" style="color:red;"></p>
+  </div>
+</div>
+
+<script>
+  // Fonction pour convertir ArrayBuffer en hex string
+  function bufferToHex(buffer) {
+    return Array.from(new Uint8Array(buffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  // Hashage SHA-256 du mot de passe
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return bufferToHex(hashBuffer);
+  }
+
+  const adminHash = 'd306c5f5372bbd8f468f521541b4189c88279979e1e9e5a6dd8af1a0e0c4e97a';
+
+  const modal = document.getElementById('adminModal');
+  const btn = document.getElementById('adminBtn');
+  const spanClose = document.getElementById('closeModal');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginMsg = document.getElementById('loginMessage');
+  const pwdInput = document.getElementById('adminPassword');
+
+  // Ouvrir modal au clic bouton
+  btn.onclick = () => {
+    loginMsg.textContent = '';
+    pwdInput.value = '';
+    modal.style.display = 'block';
+    pwdInput.focus();
+  };
+
+  // Fermer modal
+  spanClose.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  // Fermer modal si clic hors contenu
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  // Vérification mot de passe au clic login
+  loginBtn.onclick = async () => {
+    const pwd = pwdInput.value;
+    if (!pwd) {
+      loginMsg.textContent = 'Veuillez entrer un mot de passe';
+      return;
+    }
+    const hashed = await hashPassword(pwd);
+    if (hashed === adminHash) {
+      loginMsg.style.color = 'green';
+      loginMsg.textContent = 'Connecté en tant qu\'admin !';
+      // Ici tu peux rediriger ou afficher le panneau admin
+      setTimeout(() => {
+        modal.style.display = 'none';
+        // Exemple : redirection vers admin.html
+        window.location.href = 'admin.html';
+      }, 1000);
+    } else {
+      loginMsg.style.color = 'red';
+      loginMsg.textContent = 'Mot de passe incorrect';
+    }
+  };
+
+  // Optionnel: soumettre avec touche entrée
+  pwdInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loginBtn.click();
+  });
+</script>
+
 
     <!-- Classement TOP Level -->
     <div class="title">TOP Level</div>
