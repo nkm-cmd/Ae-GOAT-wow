@@ -14,12 +14,17 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/Mangekyou_Sharingan_Sasuke_%28Eternal%29.svg'); no-repeat center center;
+  
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/Mangekyou_Sharingan_Sasuke_%28Eternal%29.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: 80vh;
+  
   opacity: 0.15;
   filter: brightness(0.8) saturate(2) hue-rotate(340deg);
   animation: moveAndRotate 30s infinite linear;
 }
+
 
 @keyframes moveAndRotate {
   0% {
