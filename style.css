@@ -109,6 +109,17 @@ body {
 .admin-button:hover {
   background: #ff3399;
 }
+.clock {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff007a;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-family: Orbitron, sans-serif;
+  box-shadow: 0 0 10px #ff007a;
+}
 
 ol {
   padding-left: 20px;
