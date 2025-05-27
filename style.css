@@ -54,6 +54,23 @@ body {
   color: #ff007a;
   text-shadow: 1px 1px 10px #ff007a;
 }
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: url('sharingan.png') no-repeat center/contain;
+  opacity: 0.05;
+  z-index: -1;
+  animation: rotateSlow 60s linear infinite;
+}
+
+@keyframes rotateSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 ol {
   padding-left: 20px;
