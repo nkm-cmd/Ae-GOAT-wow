@@ -93,33 +93,41 @@ body {
   color: #ff007a;
   text-shadow: 1px 1px 10px #ff007a;
 }
-.admin-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+/* Bouton Admin à l’intérieur de la box Mrnkm_ */
+.admin-button-inline {
+  display: inline-block;
+  margin-left: 15px;
+  padding: 5px 10px;
   background: #ff007a;
   color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-decoration: none;
+  border-radius: 8px;
   font-weight: bold;
-  box-shadow: 0 0 10px #ff007a;
-  transition: 0.3s;
+  font-size: 0.9em;
+  text-decoration: none;
+  box-shadow: 0 0 8px #ff007a;
+  vertical-align: middle;
+  transition: background 0.3s;
 }
-.admin-button:hover {
+
+.admin-button-inline:hover {
   background: #ff3399;
 }
+
+/* Horloge fixée en haut à droite avec fond opaque */
 .clock {
   position: fixed;
   top: 20px;
   right: 20px;
-  background: #ff007a;
+  background: #ff007a;  /* couleur opaque */
   padding: 10px 20px;
   border-radius: 10px;
   font-size: 18px;
-  font-family: Orbitron, sans-serif;
+  font-family: 'Orbitron', sans-serif;
   box-shadow: 0 0 10px #ff007a;
+  z-index: 9999; /* bien au-dessus */
+  user-select: none;
 }
+
 
 ol {
   padding-left: 20px;
