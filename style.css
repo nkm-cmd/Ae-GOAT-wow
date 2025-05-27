@@ -14,16 +14,15 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/Mangekyou_Sharingan_Sasuke_%28Eternal%29.svg');
+  background-image: url('images/mangekyou_sharingan_sasuke(Eternal).svg.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 80vh;
-  
   opacity: 0.15;
   filter: brightness(0.8) saturate(2) hue-rotate(340deg);
   animation: moveAndRotate 30s infinite linear;
 }
+
 
 
 @keyframes moveAndRotate {
@@ -101,12 +100,4 @@ ol {
 
 li {
   margin-bottom: 5px;
-}
-
-{
-  background-image: url('images/mangekyou_sharingan_sasuke(Eternal).svg.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* ou cover selon ce que tu veux */
-  background-color: black; /* optionnel, pour bien faire ressortir */
 }
