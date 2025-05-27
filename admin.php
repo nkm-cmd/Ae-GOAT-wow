@@ -1,8 +1,6 @@
 <?php
 session_start();
-
-// Mot de passe haché généré depuis "Aelaxatif1*"
-$mot_de_passe_hache = '$2y$10$EOzGeSOpqkMpT53uDNMEBuhOUYpb3RE8j0XNLWbdw1okN6J0OJRA2';
+$mot_de_passe_hache = '$2y$10$EOzGeSOpqkMpT53uDNMEBuhOUYpb3RE8j0XNLWbdw1okN6J0OJRA2'; // Aelaxatif1*
 
 if (isset($_POST['password'])) {
     if (password_verify($_POST['password'], $mot_de_passe_hache)) {
@@ -18,7 +16,7 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['admin'])):
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +25,7 @@ if (!isset($_SESSION['admin'])) {
   <title>Connexion Admin</title>
   <style>
     body {
-      background: #0f0f0f;
+      background: #121212;
       color: #fff;
       font-family: Arial, sans-serif;
       display: flex;
@@ -51,7 +49,7 @@ if (!isset($_SESSION['admin'])) {
     button {
       background: #ff007a;
       border: none;
-      padding: 10px 20px;
+      padding: 10px;
       border-radius: 10px;
       color: white;
       font-weight: bold;
@@ -73,48 +71,71 @@ if (!isset($_SESSION['admin'])) {
   </form>
 </body>
 </html>
-<?php
-exit;
-}
+<?php exit; endif; ?>
 
-// Affichage des logs si connecté
-$logs = file_exists('logs/visites.log') ? file('logs/visites.log') : [];
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Espace Admin - Logs</title>
+  <title>Espace Admin - Visites</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.css" />
   <style>
     body {
       background: #0f0f0f;
-      color: #00f2ff;
-      font-family: monospace;
-      padding: 30px;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
     }
     h1 {
       color: #ff007a;
     }
-    pre {
-      background: #1e1e1e;
+    .table-container {
+      background: #1a1a1a;
+      border-radius: 10px;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      max-height: 80vh;
-      overflow-y: auto;
+      box-shadow: 0 0 10px rgba(255,0,122,0.3);
     }
-    a {
-      display: inline-block;
-      margin-top: 20px;
+    a.logout {
       color: #ff007a;
       text-decoration: none;
+      float: right;
+      margin-top: -40px;
     }
   </style>
 </head>
 <body>
-  <h1>Logs des visites</h1>
-  <pre><?php echo htmlspecialchars(implode("", array_reverse($logs))); ?></pre>
-  <a href="?logout=1">Se déconnecter</a>
+  <h1>Espace Admin</h1>
+  <a href="?logout=1" class="logout">Se déconnecter</a>
+
+  <div class="table-container">
+    <table id="logsTable" class="datatable">
+      <thead>
+        <tr>
+          <th>IP</th>
+          <th>Agent</th>
+          <th>Date</th>
+          <th>Page visitée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $logs = file_exists('logs/visites.json') ? json_decode(file_get_contents('logs/visites.json'), true) : [];
+        foreach (array_reverse($logs) as $entry) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($entry['ip']) . "</td>
+                    <td>" . htmlspecialchars($entry['agent']) . "</td>
+                    <td>" . htmlspecialchars($entry['time']) . "</td>
+                    <td>" . htmlspecialchars($entry['page']) . "</td>
+                  </tr>";
+        }
+        ?>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"></script>
+  <script>
+    const dataTable = new simpleDatatables.DataTable("#logsTable");
+  </script>
 </body>
 </html>
